@@ -5,7 +5,6 @@
             <h2>正常用法</h2>
             <vi-input
                 v-model='data.inputValue'
-                :disabled='true'
             />
         </div>
 

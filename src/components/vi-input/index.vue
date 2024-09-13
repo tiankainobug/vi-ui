@@ -14,10 +14,11 @@
 <script setup lang='ts'>
 const model = defineModel()
 const props = defineProps<{
-    disabled?: boolean;
-    maxLength?: string | number;
-    minlength?: string | number;
+    disabled?: boolean; //不可编辑
+    maxLength?: string | number; //最大输入长度
+    minlength?: string | number; //最小输入长度
     placeholder?: string
+
 }>();
 
 </script>
