@@ -39,7 +39,6 @@ const data = reactive({
 })
 
 watch(() => data.isFocus, (isFocus) => {
-    console.log('focus', isFocus)
     if (isFocus) {
         inputRef.value?.focus()
         return
