@@ -1,9 +1,12 @@
 <template>
     <div
         ref='inputDivRef'
-        :class="['vi-input',{'is_focus': data.isFocus}]"
+        :class="['vi-input',{'is_focus': data.isFocus,'disable': disabled}]"
         tabindex="0"
     >
+        <Icon v-if='prefixIcon' class='vi-input_prefix_icon'>
+            <component :is='prefixIcon'/>
+        </Icon>
         <input
             ref='inputRef'
             class='vi-input_content'
@@ -25,11 +28,16 @@
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" width='14' height='14'><path d="M432 448a15.92 15.92 0 0 1-11.31-4.69l-352-352a16 16 0 0 1 22.62-22.62l352 352A16 16 0 0 1 432 448z" fill="currentColor"></path><path d="M248 315.85l-51.79-51.79a2 2 0 0 0-3.39 1.69a64.11 64.11 0 0 0 53.49 53.49a2 2 0 0 0 1.69-3.39z" fill="currentColor"></path><path d="M264 196.15L315.87 248a2 2 0 0 0 3.4-1.69a64.13 64.13 0 0 0-53.55-53.55a2 2 0 0 0-1.72 3.39z" fill="currentColor"></path><path d="M491 273.36a32.2 32.2 0 0 0-.1-34.76c-26.46-40.92-60.79-75.68-99.27-100.53C349 110.55 302 96 255.68 96a226.54 226.54 0 0 0-71.82 11.79a4 4 0 0 0-1.56 6.63l47.24 47.24a4 4 0 0 0 3.82 1.05a96 96 0 0 1 116 116a4 4 0 0 0 1.05 3.81l67.95 68a4 4 0 0 0 5.4.24a343.81 343.81 0 0 0 67.24-77.4z" fill="currentColor"></path><path d="M256 352a96 96 0 0 1-93.3-118.63a4 4 0 0 0-1.05-3.81l-66.84-66.87a4 4 0 0 0-5.41-.23c-24.39 20.81-47 46.13-67.67 75.72a31.92 31.92 0 0 0-.64 35.54c26.41 41.33 60.39 76.14 98.28 100.65C162.06 402 207.92 416 255.68 416a238.22 238.22 0 0 0 72.64-11.55a4 4 0 0 0 1.61-6.64l-47.47-47.46a4 4 0 0 0-3.81-1.05A96 96 0 0 1 256 352z" fill="currentColor"></path></svg>
             </span>
         </span>
+        <Icon v-if='suffixIcon' class='vi-input_suffix_icon'>
+            <component :is='suffixIcon'/>
+        </Icon>
     </div>
 </template>
 
 <script setup lang='ts'>
 import { onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
+import { Icon } from '@vicons/utils'
+
 
 const model = defineModel()
 const props = defineProps<{
@@ -39,7 +47,8 @@ const props = defineProps<{
     placeholder?: string;
     clearable?: boolean; //是否展示一键清空
     password?: boolean; //是否为密码输入框（可切换显隐）
-    textarea?: boolean; //是否为文本域
+    prefixIcon?: Object; //输入框头部的图片
+    suffixIcon?: Object; //输入框尾部的图片
 }>();
 const inputDivRef = ref<HTMLInputElement | null>(null);
 const inputRef = ref<HTMLInputElement | null>(null);
@@ -80,7 +89,9 @@ const handleClickOutside = (event: any) => {
 };
 // 获取输入框的类型
 const getInputType = () => {
-    return showPassword() ? 'password' : 'text'
+    if (props.password) {
+        return showPassword() ? 'password' : 'text'
+    }
 }
 // 判断是否展示一键删除按钮
 // 1.clearable：true
@@ -134,5 +145,18 @@ const handleClear = () => {
 }
 .is_focus {
     box-shadow: 0 0 0 1px $input-focus-border-color inset;
+}
+.disable {
+    background-color: #fafafa;
+    cursor: no-drop;
+}
+input:disabled {
+    cursor: no-drop;
+}
+.vi-input_prefix_icon {
+    margin-right: 5px;
+}
+.vi-input_suffix_icon {
+    margin-left: 5px;
 }
 </style>

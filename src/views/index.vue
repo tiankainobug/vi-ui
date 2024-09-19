@@ -22,7 +22,7 @@ const goComponent = () => {
     align-items: center;
 
     div {
-        width: 200px;
+        width: 240px;
         height: 50px;
         background-color: darkcyan;
         border-radius: 10px;
