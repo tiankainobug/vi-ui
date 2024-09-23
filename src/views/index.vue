@@ -1,7 +1,7 @@
 <template>
     <div class='container'>
-        <div @click='goComponent'>Input 输入框</div>
-        <div>Button</div>
+        <div @click="goComponent('input')">Input 输入框</div>
+        <div @click="goComponent('button')">Button 按钮</div>
     </div>
 </template>
 
@@ -10,8 +10,15 @@
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const goComponent = () => {
-    router.push('/input')
+const goComponent = (type: string) => {
+    if (type === 'input') {
+        router.push('/input')
+        return
+    }
+    if (type === 'button') {
+        router.push('/button')
+        return
+    }
 }
 </script>
 

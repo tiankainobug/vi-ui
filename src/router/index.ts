@@ -12,6 +12,11 @@ const router = createRouter({
             path: '/input',
             name: 'Input',
             component: () => import('@/views/input/index.vue')
+        },
+        {
+            path: '/button',
+            name: 'Button',
+            component: () => import('@/views/button/index.vue')
         }
     ]
 })
