@@ -24,14 +24,15 @@ const goComponent = (type: string) => {
 
 <style scoped>
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 10px;
+    justify-items: center;
 
     div {
         width: 240px;
-        height: 50px;
-        background-color: darkcyan;
+        height: 180px;
+        border: 1px solid darkcyan;
         border-radius: 10px;
 
         display: flex;
@@ -42,7 +43,10 @@ const goComponent = (type: string) => {
         cursor: pointer;
     }
     div:hover {
+        color: #fff;
+        font-size: 16px;
         background-color: seagreen;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 01.5);
     }
 }
 </style>
